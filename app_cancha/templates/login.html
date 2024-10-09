@@ -1,0 +1,16 @@
+{% extends 'home.html' %}
+
+
+{% block esto_cambia %}
+
+    <form action="{% url 'login' %}" method="POST">
+        
+        {{nuevo.formulario.as_p}}
+        
+        <button type="submit">Iniciar Sesion</button>
+
+    </form>
+    
+{% endblock esto_cambia %}
+
+    

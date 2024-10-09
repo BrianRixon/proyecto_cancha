@@ -1,0 +1,14 @@
+{% extends 'home.html' %}
+
+
+{% block esto_cambia %}
+
+    <form action="{% url 'registro' %}" method="POST">{% csrf_token %}
+        
+        {{nuevo_formulario.as_p}}
+        
+        <button type="submit">Registrar</button>
+
+    </form>
+    
+{% endblock esto_cambia %}
