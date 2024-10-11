@@ -3,9 +3,9 @@
 
 {% block esto_cambia %}
 
-    <form action="{% url 'login' %}" method="POST">
+    <form action="{% url 'login' %}" method="POST">{% csrf_token %}
         
-        {{nuevo.formulario.as_p}}
+        {{formulario.as_p}}
         
         <button type="submit">Iniciar Sesion</button>
 

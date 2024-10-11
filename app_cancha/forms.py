@@ -7,3 +7,9 @@ class formRegistro(forms.Form):
     telefono = forms.CharField(max_length=50)
     password1 = forms.CharField(label='contraseña', widget=forms.PasswordInput)
     password2 = forms.CharField(label='repetir contraseña', widget=forms.PasswordInput)
+
+
+class formLogin(forms.Form):
+
+    email = forms.EmailField()
+    password = forms.CharField(label='contraseña', widget=forms.PasswordInput) 

@@ -1,7 +1,11 @@
 from django.shortcuts import render
-from .forms import formRegistro
+from .forms import formRegistro, formLogin
 from .models import *
 from django.contrib.auth.hashers import make_password
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
+from django.contrib.auth import login, logout, authenticate
+from django.contrib.auth.hashers import check_password
+from django.contrib import messages
 # Create your views here.
 
 def registro(request):
@@ -35,8 +39,61 @@ def registro(request):
 
 
 
+def iniciar_sesion(request):
+    if request.method == 'POST':
+        # Crear una instancia del formulario con los datos del POST
+        formulario = formLogin(request.POST)
+        
+        if formulario.is_valid():
+            # Extraer los datos del formulario
+            email = formulario.cleaned_data.get('email')
+            password = formulario.cleaned_data.get('password')
+            
+            try:
+                # Obtener el usuario con ese email
+                usuario = Registro.objects.get(email=email)  
+                
+                # Verificar si la contraseña es correcta
+                if usuario.check_password(password):
+                    # Si la autenticación es exitosa, iniciar sesión
+                    login(request, usuario)
+                    messages.success(request, f"Bienvenido, {usuario.nombre}!")  # Mensaje de éxito
+                    return render(request,'home.html')  # Redirigir a la página de inicio u otra página
+                else:
+                    messages.error(request, "Contraseña incorrecta.")  # Mensaje de error
+            except Registro.DoesNotExist:
+                messages.error(request, "Usuario no encontrado.")  # Mensaje de error
+                return render(request, 'login.html', {'formulario': formulario})
+
+    else:
+        # Si el método es GET, renderizar el formulario vacío
+        formulario = formLogin()
+    
+    # Renderizar el formulario de inicio de sesión con mensajes de error (si los hay)
+    return render(request, 'login.html', {'formulario': formulario})
+
+        
+
+
+def cerrar_session(req):
+    pass
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 # render de templates
+
+
 def inicio(request):
     return render(request, "home.html", {})
 
