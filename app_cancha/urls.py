@@ -17,5 +17,5 @@ urlpatterns = [
     path('paddle.html', paddle, name = "paddle"),
     path('tenis.html', tenis, name = "tenis"),
     path("contacto.html", contacto, name="contacto"),
-
+    path("turnos.html", turnos, name="turnos"),
 ]

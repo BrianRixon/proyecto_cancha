@@ -1,9 +1,10 @@
 from django.shortcuts import render
-from .forms import formRegistro, formLogin
+from .forms import *
 from .models import *
 from django.contrib.auth.hashers import make_password
-from django.contrib.auth import login
+from django.contrib.auth import login, logout
 from django.contrib import messages
+from django.core.mail import send_mail
 # Create your views here.
 
 def registro(request):
@@ -70,8 +71,39 @@ def iniciar_sesion(request):
 
         
 
+def cerrar_session(request):
+    logout(request)
+    return render(request, "logout.html", {})
 
 
+def contacto(request):
+
+    if request.method == 'POST':
+
+        formcontacto = formContacto(request.POST)
+
+        if formcontacto.is_valid():
+            nombre = formcontacto.cleaned_data['nombre']
+            email = formcontacto.cleaned_data['email']
+            mensaje = formcontacto.cleaned_data['mensaje']
+
+            mensaje_completo = f"De: {nombre} <{email}>\n\nMensaje\n{mensaje}"
+
+            send_mail(f'Consulta de {nombre} desde el sitio web',  # Asunto
+                mensaje_completo,  
+                email,  
+                ['brianrixon_mdp@hotmail.com'],  
+                fail_silently=False,
+            )
+
+        messages.success(request, "Tu consulta fue enviada!")
+        return render(request, "home.html", {})
+    
+    else:
+
+        formcontacto = formContacto()
+
+        return render(request,"contacto.html",{'formcontacto':formcontacto})
 
 
 
@@ -97,8 +129,6 @@ def registro_exitoso(request):
 def home(request):
     return render(request, "home.html", {})
 
-def cerrar_session(request):
-    return render(request, "logout.html", {})
 
 def paddle(request):
     return render(request, "paddle.html", {})
@@ -109,8 +139,8 @@ def futbol5(request):
 def tenis(request):
     return render(request, "tenis.html", {})
 
-def contacto(request):
-    return render(request,"contacto.html",{})
+def turnos(request):
+    return render(request,"turnos.html",{})
 
 
 

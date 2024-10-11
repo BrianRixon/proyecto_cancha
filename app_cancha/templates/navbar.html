@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg navbar-light">
-  <a class="navbar-brand" href="#">COMPLEJO</a>
+  <a class="navbar-brand" href="#">CANCHETA</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
   </button>
@@ -9,6 +9,21 @@
           <li class="nav-item active">
               <a class="nav-link" href="{% url 'home' %}">Home <span class="sr-only">(current)</span></a>
           </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="{% url 'home' %}">COMPLEJO <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item active">
+            <a class="nav-link" href="{% url 'contacto' %}">CONTACTO <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item active">
+            <a class="nav-link" href="{% url 'home' %}">COLONIA <span class="sr-only">(current)</span></a>
+        </li>
+        {% if user.is_authenticated %}
+        <li class="nav-item active">
+            <a class="nav-link" href="{% url 'turnos' %}">TURNOS <span class="sr-only">(current)</span></a>
+        </li>
+        {% endif %}
+        
           <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
                   Canchas
@@ -22,13 +37,11 @@
       </ul>
 
       {% if user.is_authenticated %}
-          {% if url %}
-              <img src="{{ url }}" height="30px" alt="avatar">
-          {% endif %}
           
-          <p>Bienvenido  {{ user.nombre }}</p>
+          <p>BIENVENIDO  {{ user.nombre }}</p>
+          &nbsp;
           <a href="{% url 'logout' %}">
-              <button class="btn btn-primary" type="submit">Cerrar sesión</button>
+              <button class="" type="submit">Cerrar sesión</button>
           </a>
       {% else %}
           <a href="{% url 'login' %}">

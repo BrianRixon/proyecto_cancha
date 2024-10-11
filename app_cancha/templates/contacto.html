@@ -1,0 +1,15 @@
+{% extends 'home.html' %}
+
+
+
+{% block esto_cambia %}
+  <form action="{% url 'contacto' %}" method="POST">{% csrf_token %}
+        
+        {{formcontacto.as_p}}
+        
+        <button type="submit">Enviar</button>
+
+    </form>
+  
+{% endblock esto_cambia %}
+    

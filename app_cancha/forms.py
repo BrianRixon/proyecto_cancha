@@ -13,3 +13,10 @@ class formLogin(forms.Form):
 
     email = forms.EmailField()
     password = forms.CharField(label='contraseña', widget=forms.PasswordInput) 
+
+
+class formContacto(forms.Form):
+
+    nombre = forms.CharField(max_length=100, label="Nombre")
+    email = forms.EmailField(label="Correo Electrónico")
+    mensaje = forms.CharField(widget=forms.Textarea, label="Mensaje")
