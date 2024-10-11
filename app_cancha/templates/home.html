@@ -1,3 +1,5 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/estilos.css' %}">
 <!doctype html>
 <html lang="en">
   <head>
@@ -15,25 +17,20 @@
 
     
     {% block esto_cambia %}
+      <div class="container-fluid">
+        <div class="cuerpo">
+          <h3 class="nombre">hola mundo</h3>
+        </div>
 
-
-        <h1>hola mundo!</h1>  
-        
+          
+      </div>  
           
     {% endblock esto_cambia %}
-        
 
 
 
-
-
-
-
-
-
-
-
-
+    
+  {% include 'footer.html' %}
 
 
 
