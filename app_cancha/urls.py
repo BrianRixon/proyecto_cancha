@@ -1,6 +1,6 @@
 from django.urls import path
 from .views import *
-from django.contrib.auth.views import LogoutView
+from django.contrib.auth import views as auth_views
 
 
 
@@ -17,5 +17,6 @@ urlpatterns = [
     path('paddle.html', paddle, name = "paddle"),
     path('tenis.html', tenis, name = "tenis"),
     path("contacto.html", contacto, name="contacto"),
-    path("turnos.html", turnos, name="turnos"),
+    path("turnos.html", crear_reserva, name="turnos"),
+    path("reserva_exitosa.html", reserva_exitosa, name="reserva_exitosa"),
 ]

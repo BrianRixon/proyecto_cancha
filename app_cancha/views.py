@@ -5,6 +5,7 @@ from django.contrib.auth.hashers import make_password
 from django.contrib.auth import login, logout
 from django.contrib import messages
 from django.core.mail import send_mail
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 
 def registro(request):
@@ -106,8 +107,20 @@ def contacto(request):
         return render(request,"contacto.html",{'formcontacto':formcontacto})
 
 
-
-
+#@login_required
+def crear_reserva(request):
+    if request.method == 'POST':
+        form = ReservaForm(request.POST)
+        if form.is_valid():
+            reserva = form.save(commit=False) 
+            reserva.usuario = request.user 
+            reserva.estado = 'pendiente'  
+            reserva.save()  
+            return render(request,'reserva_exitosa.html',{})
+    else:
+        form = ReservaForm()
+    
+    return render(request, 'turnos.html', {'form': form})
 
 
 
@@ -139,8 +152,8 @@ def futbol5(request):
 def tenis(request):
     return render(request, "tenis.html", {})
 
-def turnos(request):
-    return render(request,"turnos.html",{})
+def reserva_exitosa(request):
+    return render(request,"reserva_exitosa.html",{})
 
 
 
